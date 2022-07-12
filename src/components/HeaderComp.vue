@@ -31,8 +31,9 @@ export default {
 
      methods: {
         getApi() {
-           this.$emit('getApi', this.userInput)
+           this.$emit('getApi', this.userInput);
            console.log(this.userInput);
+           this.userInput = '';
         }
     }
 }
