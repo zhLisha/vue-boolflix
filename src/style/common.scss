@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import './variables.scss';
+
+// Reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+
+// Common
+body {
+    font-family: 'Roboto', sans-serif;
+    min-width: 992px;
+    background-color: $mainColorBg;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+.container {
+    width: 97%;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+}
