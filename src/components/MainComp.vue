@@ -26,8 +26,7 @@
             
             <div class="stars">
               {{decimalNumber(item.vote_average)}}
-              <i v-for="(index) in ratingStar" :key="index" class="fa-solid fa-star yellow"></i>
-              <i v-for="(index) in ratingEmpty" :key="index" class="fa-solid fa-star grey"></i>
+              <i v-for="(star, index) in 5" :key="index" :class="{'yellow': star <= decimalNumber(item.vote_average)}" class="fa-solid fa-star"></i>
             </div>
             <!-- {{item.vote_average}} -->
           </div>
@@ -55,12 +54,10 @@
           <span>Lingua: </span>
           {{item.original_language}}
         </div>
-        <div class="rated">
+        <div class="rated flex">
           <span>Voto: </span>
            <div class="stars">
-            {{decimalNumber(item.vote_average)}}
-            <i v-for="(star, index) in ratingStar" :key="index" class="fa-solid fa-star yellow"></i>
-            <i v-for="(star, index) in ratingEmpty" :key="index" class="fa-solid fa-star grey"></i>
+            <i v-for="(star, index) in 5" :key="index" :class="{'yellow': star <= decimalNumber(item.vote_average)}" class="fa-solid fa-star"></i>
           </div>
         </div>
         </div>
@@ -70,6 +67,7 @@
 </template>
 
 <script>
+
 
 export default {
   name: 'MainComp',
@@ -93,29 +91,7 @@ export default {
        let numberVote = parseInt(removeDec)
        console.log('numeri prima', numberVote);
 
-      if(numberVote === 5) {
-        this.ratingEmpty = [];
-        this.ratingStar = [6, 2, 3, 4, 5];
-        
-      } else if(numberVote === 4) {
-        this.ratingEmpty = [6];
-        this.ratingStar = [2, 3, 4, 5];
-
-      } else if(numberVote === 3) {
-        this.ratingEmpty = [6, 2];
-        this.ratingStar = [3, 4, 5];
-
-      } else if(numberVote === 2) {
-        this.ratingEmpty = [6, 2, 3];
-        this.ratingStar = [4, 5]; 
-
-      } else if( numberVote === 1) {
-        this.ratingEmpty = [6, 2, 3, 4];
-        this.ratingStar = [5];
-      } else {
-        this.ratingEmpty = [6, 2, 3, 4, 5];
-        this.ratingStar = [];
-      }
+        return numberVote;
     }
   }
 }

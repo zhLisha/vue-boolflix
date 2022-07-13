@@ -33,8 +33,6 @@ export default {
         getApi() {
            this.$emit('apiShow', this.userInput);
            this.userInput = '';
-
-           console.log('header', this.userInput);
         }
     }
 }
