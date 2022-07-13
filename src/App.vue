@@ -52,10 +52,6 @@ export default {
       
     },
 
-  },
-
-  created() {
-    this.apiShow()
   }
 }
 </script>

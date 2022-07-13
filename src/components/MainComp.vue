@@ -5,28 +5,32 @@
     <ul class="flex movie-section">
       <li class="card" v-for="item, index in getArrayMovie" :key="index">
         <img :src="'https://image.tmdb.org/t/p/original/' + item.poster_path" :alt="item.title">
-        <div class="title">
-          <span>Titolo: </span>
-          {{item.title}}
-        </div>
-        <div class="original-title">
-          <span>Titotlo Originale: </span>
-          {{item.original_title}}
-        </div>
-        <div class="language">
-          <span>Lingua: </span>
-          {{item.original_language}}
-          <!-- <img :src="`https://countryflagsapi.com/png/${item.original_laguage}`" :alt="item.original_laguage"> -->
-        </div>
-        <div class="rated flex">
-          <span>Voto: </span>
-          
-          <div class="stars">
-            {{decimalNumber(item.vote_average)}}
-            <i v-for="(star, index) in ratingStar" :key="index" class="fa-solid fa-star yellow"></i>
-            <i v-for="(star, index) in ratingEmpty" :key="index" class="fa-solid fa-star grey"></i>
+
+        <!-- Card Detailes activeted with hover -->
+        <div class="hover-details">
+          <div class="title">
+            <span>Titolo: </span>
+            {{item.title}}
           </div>
-          <!-- {{item.vote_average}} -->
+          <div class="original-title">
+            <span>Titotlo Originale: </span>
+            {{item.original_title}}
+          </div>
+          <div class="language">
+            <span>Lingua: </span>
+            {{item.original_language}}
+            <!-- <img :src="`https://countryflagsapi.com/png/${item.original_laguage}`" :alt="item.original_laguage"> -->
+          </div>
+          <div class="rated flex">
+            <span>Voto: </span>
+            
+            <div class="stars">
+              {{decimalNumber(item.vote_average)}}
+              <i v-for="(index) in ratingStar" :key="index" class="fa-solid fa-star yellow"></i>
+              <i v-for="(index) in ratingEmpty" :key="index" class="fa-solid fa-star grey"></i>
+            </div>
+            <!-- {{item.vote_average}} -->
+          </div>
         </div>
       </li>
     </ul>
@@ -36,7 +40,10 @@
     <ul class="flex tv-show-section">
       <li class="card" v-for="item, index in getArrayTvShow" :key="index">
         <img :src="'https://image.tmdb.org/t/p/original/' + item.poster_path" :alt="item.title">
-        <div class="title">
+
+        <!-- Card Detailes activeted with hover -->
+        <div class="hover-details">
+          <div class="title">
           <span>Titolo: </span>
           {{item.name}}
         </div>
@@ -55,6 +62,7 @@
             <i v-for="(star, index) in ratingStar" :key="index" class="fa-solid fa-star yellow"></i>
             <i v-for="(star, index) in ratingEmpty" :key="index" class="fa-solid fa-star grey"></i>
           </div>
+        </div>
         </div>
       </li>
     </ul>
@@ -87,25 +95,25 @@ export default {
 
       if(numberVote === 5) {
         this.ratingEmpty = [];
-        this.ratingStar = [1, 1, 1, 1, 1];
+        this.ratingStar = [6, 2, 3, 4, 5];
         
       } else if(numberVote === 4) {
-        this.ratingEmpty = [1];
-        this.ratingStar = [1, 1, 1, 1];
+        this.ratingEmpty = [6];
+        this.ratingStar = [2, 3, 4, 5];
 
       } else if(numberVote === 3) {
-        this.ratingEmpty = [1, 1];
-        this.ratingStar = [1, 1, 1];
+        this.ratingEmpty = [6, 2];
+        this.ratingStar = [3, 4, 5];
 
       } else if(numberVote === 2) {
-        this.ratingEmpty = [1, 1, 1];
-        this.ratingStar = [1, 1]; 
+        this.ratingEmpty = [6, 2, 3];
+        this.ratingStar = [4, 5]; 
 
       } else if( numberVote === 1) {
-        this.ratingEmpty = [1, 1, 1, 1];
-        this.ratingStar = [1];
+        this.ratingEmpty = [6, 2, 3, 4];
+        this.ratingStar = [5];
       } else {
-        this.ratingEmpty = [1, 1, 1, 1, 1];
+        this.ratingEmpty = [6, 2, 3, 4, 5];
         this.ratingStar = [];
       }
     }
@@ -134,12 +142,30 @@ export default {
       font-size: 13px;
       font-weight: 100;
       color: white;
-      padding: 20px 5px;
+      margin: 20px 5px;
       width: calc((100% / 6) - 10px);
+      position: relative;
+
+      .hover-details{
+        display: none;
+        background-color: $headerColor;
+        padding: 40px 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: auto;
+        
+
+        .title, .original-title, .language, .rated {
+          padding: 8px;
+        }
+      }
+
 
       span {
-        font-size: 17px;
+        font-size: 13px;
         font-weight: 500;
+      
       }
 
       .rated {
@@ -155,6 +181,10 @@ export default {
           color: rgb(173, 173, 173);
         }
         }
+      }
+
+      &:hover .hover-details{
+        display: block;
       }
     }
   }
