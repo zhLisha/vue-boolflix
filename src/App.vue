@@ -6,7 +6,7 @@
     </header>
 
     <main>
-      <MainComp :getArray="movieArray"/>
+      <MainComp :getArrayMovie="movieArray" :getArrayTvShow="tvShowArray"/>
     </main>
   </div>
 </template>
@@ -25,24 +25,36 @@ export default {
 
   data() {
     return {
-      userChoose: '',
+      getResult: '',
       urlMovie: 'https://api.themoviedb.org/3/search/movie?api_key=1a9d4ad303208935b21b8e064d453ab7&language=it-IT&query=',
+      urlTvShow: 'https://api.themoviedb.org/3/search/tv?api_key=6cf9d861dc5d32d698a74fadc1c4a561&language=en-US&page=1&include_adult=false&query=',
       movieArray: [],
+      tvShowArray: []
     }
   },
 
   methods: {
     // Show e' il parametro dell-input che ho passato dall'header
     apiShow(show){
-      // Richiedo lista di show in base alla ricerca dell'utente
+      // Unisco l'url fisso(film) con l'input dell'utente
       this.getResult = `${this.urlMovie}${show}`
-      console.log(this.getResult);
-      
+        // Richiesta lista di film 
         axios.get(this.getResult).then((response) => {
-        this.movieArray = response.data.results
+        this.movieArray = response.data.results;
       });
-       console.log('app', this.userChoose);
+      
+      // Unisco l'url fisso(tv Show) con l'input dell'utente
+      this.getResult = `${this.urlTvShow}${show}`
+        // Richiesta lista di tv show 
+        axios.get(this.getResult).then((response) => {
+        this.tvShowArray = response.data.results;
+      });
+      
     }
+  },
+
+  created() {
+    this.apiShow()
   }
 }
 </script>
