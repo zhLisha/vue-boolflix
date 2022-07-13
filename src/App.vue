@@ -2,11 +2,11 @@
   <div id="app">
     <!-- Header -->
     <header>
-      <HeaderComp @getApi="apiMusic" />
+      <HeaderComp @apiShow="apiShow" />
     </header>
 
     <main>
-      <MainComp :getUserChoose="userChoose"/>
+      <MainComp :getArray="movieArray"/>
     </main>
   </div>
 </template>
@@ -14,7 +14,7 @@
 <script>
 import MainComp from './components/MainComp.vue'
 import HeaderComp from './components/HeaderComp.vue'
-
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -26,19 +26,24 @@ export default {
   data() {
     return {
       userChoose: '',
+      urlMovie: 'https://api.themoviedb.org/3/search/movie?api_key=1a9d4ad303208935b21b8e064d453ab7&language=it-IT&query=',
+      movieArray: [],
     }
   },
 
   methods: {
-    apiMusic(show){
-      this.userChoose = show;
+    // Show e' il parametro dell-input che ho passato dall'header
+    apiShow(show){
+      // Richiedo lista di show in base alla ricerca dell'utente
+      this.getResult = `${this.urlMovie}${show}`
+      console.log(this.getResult);
+      
+        axios.get(this.getResult).then((response) => {
+        this.movieArray = response.data.results
+      });
+       console.log('app', this.userChoose);
     }
-  },
-
-  created() {
-    this.apiMusic
   }
-
 }
 </script>
 
