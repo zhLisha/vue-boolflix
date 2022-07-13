@@ -16,10 +16,17 @@
         <div class="language">
           <span>Lingua: </span>
           {{item.original_language}}
+          <!-- <img :src="`https://countryflagsapi.com/png/${item.original_laguage}`" :alt="item.original_laguage"> -->
         </div>
-        <div class="rated">
+        <div class="rated flex">
           <span>Voto: </span>
-          {{item.vote_average}}
+          
+          <div class="stars">
+            {{decimalNumber(item.vote_average)}}
+            <i v-for="(star, index) in ratingStar" :key="index" class="fa-solid fa-star yellow"></i>
+            <i v-for="(star, index) in ratingEmpty" :key="index" class="fa-solid fa-star grey"></i>
+          </div>
+          <!-- {{item.vote_average}} -->
         </div>
       </li>
     </ul>
@@ -43,7 +50,11 @@
         </div>
         <div class="rated">
           <span>Voto: </span>
-          {{item.vote_average}}
+           <div class="stars">
+            {{decimalNumber(item.vote_average)}}
+            <i v-for="(star, index) in ratingStar" :key="index" class="fa-solid fa-star yellow"></i>
+            <i v-for="(star, index) in ratingEmpty" :key="index" class="fa-solid fa-star grey"></i>
+          </div>
         </div>
       </li>
     </ul>
@@ -52,14 +63,53 @@
 
 <script>
 
-
 export default {
   name: 'MainComp',
   props: {
     getArrayMovie: Array,
     getArrayTvShow: Array
   },
+  data() {
+    return {
+      // getFlag: require('@/assets/Flags')
+      ratingStar: [],
+      ratingEmpty: []
+    }
+  },
+  
+  methods: {
+    decimalNumber(number) {
+      // Diviso il voto da 10 numeri a 5
+       const removeDec = ( number / 2).toFixed();
+      //  Ritrasformo da stringa a numero
+       let numberVote = parseInt(removeDec)
+       console.log('numeri prima', numberVote);
 
+      if(numberVote === 5) {
+        this.ratingEmpty = [];
+        this.ratingStar = [1, 1, 1, 1, 1];
+        
+      } else if(numberVote === 4) {
+        this.ratingEmpty = [1];
+        this.ratingStar = [1, 1, 1, 1];
+
+      } else if(numberVote === 3) {
+        this.ratingEmpty = [1, 1];
+        this.ratingStar = [1, 1, 1];
+
+      } else if(numberVote === 2) {
+        this.ratingEmpty = [1, 1, 1];
+        this.ratingStar = [1, 1]; 
+
+      } else if( numberVote === 1) {
+        this.ratingEmpty = [1, 1, 1, 1];
+        this.ratingStar = [1];
+      } else {
+        this.ratingEmpty = [1, 1, 1, 1, 1];
+        this.ratingStar = [];
+      }
+    }
+  }
 }
 </script>
 
@@ -91,7 +141,21 @@ export default {
         font-size: 17px;
         font-weight: 500;
       }
-      
+
+      .rated {
+        align-items: center;
+        
+        .stars {
+          padding: 0 5px;
+          .yellow {
+          color: rgb(254, 225, 2);
+        }
+
+        .grey {
+          color: rgb(173, 173, 173);
+        }
+        }
+      }
     }
   }
 }

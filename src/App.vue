@@ -50,7 +50,8 @@ export default {
         this.tvShowArray = response.data.results;
       });
       
-    }
+    },
+
   },
 
   created() {
