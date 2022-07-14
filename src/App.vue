@@ -28,6 +28,7 @@ export default {
       getResult: '',
       urlMovie: 'https://api.themoviedb.org/3/search/movie?api_key=1a9d4ad303208935b21b8e064d453ab7&language=it-IT&query=',
       urlTvShow: 'https://api.themoviedb.org/3/search/tv?api_key=6cf9d861dc5d32d698a74fadc1c4a561&language=en-US&page=1&include_adult=false&query=',
+      
       movieArray: [],
       tvShowArray: []
     }

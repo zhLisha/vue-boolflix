@@ -6,11 +6,11 @@
         </div>
 
         <!-- Search Section -->
-        <div class="user-search">
+        <div class="user-search flex">
             <label for="movies">
                 <input @keyup.enter="getApi()" v-model="userInput"  type="text" placeholder="Cerca">
             </label>
-            <button @click="getApi()" class="btn">
+            <button @click="getApi()" class="btn flex">
                 Cerca
             </button>
         </div>
@@ -56,12 +56,7 @@ export default {
         }
             
         .btn {
-            // border: 1px solid white;
             padding: 6px 5px;
-            background-color: $mainColorRed;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
         }
 
         input {

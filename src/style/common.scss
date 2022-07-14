@@ -24,6 +24,14 @@ img {
     display: block;
 }
 
+.btn {
+    background-color: $mainColorRed;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+}
+
 .container {
     width: 97%;
     margin: 0 auto;
