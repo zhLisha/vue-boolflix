@@ -4,7 +4,7 @@
     <div v-if="getArrayMovie.length" class="movie">
       <h2>Film</h2>
       <ul class="flex movie-section">
-        <li class="card" v-for="item, index in getArrayMovie" :key="index">
+        <li class="card" v-for="(item, index) in getArrayMovie" :key="index">
 
         <!-- Mostro il poster del film solo se e' presente nell'API -->
           <img class="image-found" v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/original${item.poster_path}`" :alt="item.title">
@@ -12,7 +12,7 @@
           <img class="not-found-image" v-else-if="item.poster_path == null" src="../assets/Image-Not-Available.png" alt="">
 
           <!-- Card Detailes activeted with hover -->
-          <div class="hover-details">
+          <div class="hover-details" @mouseleave="removeDetails()">
             <!-- TItolo -->
             <div class="title">
               <span>Titolo: </span>
@@ -42,26 +42,26 @@
             </div>
 
             <!-- Read More Button -->
-            <div v-if="!isActive" class="more-info" @click="getInfo(item.id)">
+            <div v-if="!isActive" class="more-info" @click="getInfo(item.id), selectedCard(index)">
                 <span>More Info ...</span>                
             </div>
 
              <!-- Cast Details up to 5 -->
-            <div class="cast">
-              <h4 v-if="isActive"> Cast: </h4>
+            <div v-if="isActive" class="cast">
+              <h4> Cast: </h4>
               <div v-for="(cast, index) in castInfo" :key="index">
                   {{cast.name}}
               </div>
             </div>
 
             <!-- Genre Info -->
-            <div class="genres">
-              <h4 v-if="isActive">Generi: </h4>
+            <div v-if="isActive" class="genres">
+              <h4 >Generi: </h4>
               <div v-for="(genres, index) in genreInfo" :key="index">
                 {{genres.name}}
               </div>
             </div>
-            
+
           </div>
         </li>
       </ul>
@@ -154,7 +154,7 @@ export default {
       castInfo: [],
       genreInfo: [],
       isActive: false,
-      currentCard: 0,
+      currentCard: null
     }
   },
   
@@ -193,7 +193,6 @@ export default {
       axios.get(infoCast).then((response) => {
         // Prendo solo i primi 5 risultati del cast 
         this.castInfo = response.data.cast.slice(0, 5)
-
         this.isActive = true;
       });
 
@@ -205,7 +204,15 @@ export default {
       });
     },
 
-   
+    selectedCard(index) {
+      this.currentCard = index;
+
+      console.log(this.currentCard);
+    },
+
+    removeDetails() {
+      this.isActive = false
+    }
   }
 }
 </script>
@@ -249,7 +256,7 @@ export default {
         overflow: auto;
 
         .title, .original-title, .language, .rated {
-          padding: 8px;
+          padding: 8px 0;
         }
 
         .flag {
