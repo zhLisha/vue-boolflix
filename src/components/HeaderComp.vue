@@ -7,7 +7,6 @@
 
         <!-- Search Section -->
         <div class="user-search">
-                
             <label for="movies">
                 <input @keyup.enter="getApi()" v-model="userInput"  type="text" placeholder="Cerca">
             </label>
@@ -55,25 +54,21 @@ export default {
             font-size: 35px;
             font-weight: 500;
         }
+            
+        .btn {
+            // border: 1px solid white;
+            padding: 6px 5px;
+            background-color: $mainColorRed;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-       .search-bar {
-
-            input {
-               padding: 2px 0 2px 5px; 
-               border: transparent;
-            //    background-color: $headerColor;
-               border-bottom: 1px solid white;
-            }
-            .btn {
-                border: 1px solid white;
-                border-radius: 5px;
-                padding: 2px 5px;
-                margin-left: 10px;
-                background-color: $headerColor;
-                color: white;
-                cursor: pointer;
-            }
-        } 
+        input {
+            padding: 6px ;
+            border: none;
+            outline: none;
+        }
     }
 }
 </style>
