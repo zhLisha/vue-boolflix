@@ -79,7 +79,7 @@
           <img class="not-found-image" v-else-if="item.poster_path == null" src="../assets/Image-Not-Available.png" alt="">
 
           <!-- Card Detailes activeted with hover -->
-          <div class="hover-details">
+          <div class="hover-details" @mouseleave="removeDetails()">
 
              <!-- TItolo -->
             <div class="title">
@@ -108,21 +108,21 @@
             </div>
 
             <!-- Read More Button -->
-            <div v-if="!isActive" class="more-info" @click="getInfo(item.id)">
+            <div v-if="!isActive" class="more-info" @click="getInfo(item.id), selectedCard(index)">
                 <span>More Info ...</span>                
             </div>
 
              <!-- Cast Details up to 5 -->
-            <div class="cast">
-              <h4 v-if="isActive"> Cast: </h4>
+            <div v-if="isActive" class="cast">
+              <h4> Cast: </h4>
               <div v-for="(cast, index) in castInfo" :key="index">
                   {{cast.name}}
               </div>
             </div>
 
             <!-- Genre Info -->
-            <div class="genres">
-              <h4 v-if="isActive">Generi: </h4>
+            <div v-if="isActive" class="genres">
+              <h4 >Generi: </h4>
               <div v-for="(genres, index) in genreInfo" :key="index">
                 {{genres.name}}
               </div>
